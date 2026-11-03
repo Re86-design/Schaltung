@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Haushaltsschaltungen – Physik 8</title>
+<style>
+:root{--bg:#e9eef3;--ink:#17212b;--ac:#0b5fa5;--fl:#e8590c;--ok:#2b8a3e;--bad:#c92a2a;--ln:#c5d0db}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font:17px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#12304f;color:#fff;padding:14px 22px}h1{margin:0;font-size:26px;letter-spacing:.2px}header p{margin:2px 0 0;opacity:.8;font-size:14px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;background:#fff;border-bottom:1px solid var(--ln);position:sticky;top:0;z-index:5}
+nav button{flex:none;min-height:46px;padding:0 14px;border:2px solid var(--ln);border-radius:10px;background:#fff;font:inherit;font-size:15px}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+main{max-width:980px;margin:0 auto;padding:14px}
+section{display:none;background:#fff;border-radius:10px;padding:18px 20px;border:1px solid var(--ln)}section.on{display:block}
+h2{margin:0 0 6px;color:#12304f;font-size:22px}h3{margin:8px 0 4px;font-size:17px}
+button{font:inherit;cursor:pointer}
+.btn,.bar button,.chips button{min-height:46px;padding:0 14px;border-radius:10px;border:2px solid var(--ac);background:#fff;color:var(--ac);margin:3px}
+.btn.on,.bar button.on,.chips button.on{background:var(--ac);color:#fff}
+.row{display:flex;flex-wrap:wrap;gap:12px}.row>div{flex:1 1 300px}
+svg{max-width:100%;height:auto;display:block}
+.cv{width:100%;aspect-ratio:640/360;background:#f7fafc;border:2px solid var(--ln);border-radius:10px;touch-action:none;user-select:none;-webkit-user-select:none}
+.fg{width:100%;background:#f7fafc;border:2px solid var(--ln);border-radius:10px}
+.tm{fill:#fff;fill-opacity:.75;stroke:var(--ac);stroke-width:2.5}.tm.sel{fill:#ffa94d}
+.w{stroke:#667;stroke-width:4;fill:none}.flow{stroke:var(--fl)!important;stroke-dasharray:8 8;animation:fl .7s linear infinite}
+@keyframes fl{to{stroke-dashoffset:-16}}
+@keyframes pu{50%{opacity:.7}}.pulse{animation:pu 1.2s infinite}
+@media (prefers-reduced-motion:reduce){.flow,.pulse{animation:none}}
+.st{min-height:28px;margin:6px 0;font-size:15px}.bad{color:var(--bad)}.ok{color:var(--ok)}
+.t{border-left:5px solid var(--ac);background:#eef4fa;padding:8px 12px;margin:8px 0;border-radius:0 8px 8px 0}
+.t p{margin:4px 0 0}.fb{font-size:15px;margin:4px 0}.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+.q{border-top:1px solid var(--ln);padding:8px 0}.q p{margin:4px 0}
+.tag{font-size:13px;background:#dbe7f3;border-radius:6px;padding:1px 7px;margin-right:4px}
+.opt{display:block;width:100%;text-align:left;min-height:46px;margin:4px 0;padding:6px 12px;border:2px solid var(--ln);border-radius:10px;background:#fff}
+.opt.ok{background:#d3f0da;border-color:var(--ok)}.opt.bad{background:#fde0e0;border-color:var(--bad)}
+.ab{background:#fff3bf;border-radius:8px;padding:8px 12px;margin:12px 0;font-weight:600}
+.msg{padding:10px 12px;border-radius:8px;margin:8px 0;background:#eef4fa}.msg.g{background:#d3f0da}.msg.r{background:#fde0e0}
+details{margin:8px 0}summary{cursor:pointer;min-height:40px;font-weight:600}
+table{border-collapse:collapse;margin:6px 0}td,th{border:1px solid #889;padding:4px 10px;text-align:center}
+.barx{height:22px;background:#dde5ec;border-radius:11px;position:relative;overflow:hidden;margin:6px 0}
+.barx i{display:block;height:100%;background:var(--ac);transition:width .3s}.barx b{position:absolute;left:80%;top:0;bottom:0;border-left:3px solid var(--bad)}
+input[type=range]{width:100%;height:40px}
+p.hint{font-size:14px;color:#456;margin:4px 0}
+footer{max-width:980px;margin:0 auto;padding:6px 16px 30px;font-size:14px;color:#456}
+</style></head><body>
+<header><h1>Haushaltsschaltungen</h1><p>Physik 8 · Elektrischer Strom · Baue, teste und trage das Wichtigste in dein Arbeitsblatt ein</p></header>
+<nav id="nav"></nav>
+<main>
+<section><h2>1 Wiederholung: Reihen- und Parallelschaltung</h2>
+<p>Zwei gleiche Lampen (je R = 12 Ω) an einer Quelle mit U = 6 V. Die orangen Striche zeigen die technische Stromrichtung (von Plus nach Minus). Tippe auf „Lampe 2 herausdrehen“ und beobachte beide Schaltungen.</p>
+<div class="row"><div><h3>Reihenschaltung</h3><div id="f1"></div></div><div><h3>Parallelschaltung</h3><div id="f2"></div></div></div>
+<button class="btn" id="b1"></button><div id="q1"></div>
+<p class="ab">✎ Arbeitsblatt Teil 1: Trage die Regeln für I, U und R der beiden Schaltungen ein.</p>
+</section>
+
+<section><h2>2 Baukasten: Schaltungen selbst bauen</h2>
+<p>Bauteile hinzufügen, verschieben und mit Leitungen verbinden. Lampe: R = 12 Ω, Quelle: 6 V (ungefährliche Spannung, kleiner als 25 V). Löse die Aufträge der Reihe nach und tippe jeweils auf „Prüfen“. Mit „Drehen“ kannst du Bauteile in jede Richtung legen.</p>
+<div id="b2"></div>
+<p class="ab">✎ Arbeitsblatt Teil 2: Zeichne die drei Schaltbilder aus den Aufträgen mit Schaltzeichen.</p></section>
+
+<section><h2>3 Die Hausinstallation</h2>
+<p>Zwei Leitungen führen von außen in die Wohnung: Außenleiter und Neutralleiter. Tippe auf die Begriffe und schalte dann Geräte ein.</p>
+<div class="chips" id="ch3"></div><div class="msg" id="inf3">Tippe auf einen Begriff.</div>
+<svg id="h3" class="fg" viewBox="0 0 640 270"></svg>
+<div class="chips" id="dv3"></div>
+<div class="barx"><i id="bx"></i><b></b></div><div class="st" id="tot3"></div>
+<p>Alle Geräte liegen parallel zwischen Außen- und Neutralleiter an 230 V. Darum addieren sich ihre Stromstärken (I = I₁ + I₂ + …). Stromstärken sind gerundete Richtwerte.</p>
+<div id="q3"></div>
+<p class="ab">✎ Arbeitsblatt Teil 3: Beschrifte das Schaltbild der Hausinstallation und fülle den Lückentext aus.</p></section>
+
+<section><h2>4 Die Wechselschaltung</h2>
+<p><b>Problem:</b> Im Treppenhaus soll das Licht unten und oben schaltbar sein, und zwar immer, egal wie der andere Schalter steht.</p>
+<p><b>Untersuche zuerst</b> (Operator: untersuchen): Baue zwei einfache Schalter in Reihe und dann parallel zu einer Lampe und teste alle Stellungen. Beschreibe, wann die Lampe leuchtet, und beurteile, ob das für das Treppenlicht ausreicht.</p>
+<div id="b4"></div>
+<p class="ab">✎ Arbeitsblatt Teil 4: Wahrheitstabelle der Wechselschaltung, Schaltbild und Vergleich der drei Schaltungen.</p>
+</section>
+
+<section><h2>5 Schutzleiter und FI-Schalter</h2>
+<p>Eine Waschmaschine hat ein Metallgehäuse. Wähle den Schutz, mache die Isolierung defekt und lasse eine Person das Gehäuse berühren.</p>
+<div class="chips" id="m5"></div><div class="chips" id="o5"></div>
+<svg id="s5" class="fg" viewBox="0 0 640 260"></svg><div class="msg" id="r5"></div>
+<div id="fi5"></div>
+<p class="msg r">Achtung: Auch Schutzleiter und FI-Schalter bieten keine hundertprozentige Sicherheit. Vermeide den Kontakt mit elektrischen Anschlüssen!</p>
+<p class="ab">✎ Arbeitsblatt Teil 5: Beantworte „Wozu dient der FI-Schalter?“ mit eigenen Worten.</p></section>
+
+<section><h2>6 Abschlussquiz und Merkzettel</h2><div id="q6"></div>
+<h3>Das habe ich gelernt</h3><ul><li>Reihe: gleiche Stromstärke, Spannungen addieren sich. Parallel: gleiche Spannung, Stromstärken addieren sich.</li><li>Außenleiter führt 230 V, Neutralleiter ist geerdet, Schutzleiter (grün-gelb) verbindet das Gehäuse mit der Erdung.</li><li>Die Wechselschaltung schaltet ein Licht von zwei Stellen aus, jeder Schalter schaltet um.</li><li>Der FI-Schalter vergleicht die Stromstärken in Außen- und Neutralleiter und trennt bei Abweichung.</li></ul>
+<p class="ab">✎ Prüfe, ob dein Arbeitsblatt vollständig ist.</p></section>
+</main>
+<footer><b>Infotext und Modellgrenzen:</b> Lampen sind als konstante Widerstände (12 Ω) modelliert, echte Glühlampen ändern ihren Widerstand mit der Temperatur. Die Quelle ist ideal (kein Innenwiderstand). Die Hausspannung ist Wechselspannung; hier wird nur mit Effektivwerten und ohne Stromrichtungswechsel gearbeitet. Gerätestromstärken sind gerundet. Der Schwellenwert des FI-Schalters (30 mA) ist eine Zusatzinformation. Es werden keine Daten gespeichert, das Material arbeitet ohne Internet.</footer>
+<script>
+const $=s=>document.querySelector(s),F=(x,d=2)=>x.toFixed(d).replace('.',','),cl=(v,a,b)=>Math.max(a,Math.min(b,v));
+const names=['1 Wiederholung','2 Baukasten','3 Hausinstallation','4 Wechselschaltung','5 FI-Schalter','6 Abschluss'];
+function go(i){document.querySelectorAll('section').forEach((s,j)=>s.classList.toggle('on',i==j));[...$('#nav').children].forEach((b,j)=>b.classList.toggle('on',i==j));scrollTo(0,0)}
+names.forEach((n,i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>go(i);$('#nav').appendChild(b)});
+
+function quiz(el,qs){let sc=0,n=0;const sum=document.createElement('p');sum.className='st';
+qs.forEach((o,i)=>{const d=document.createElement('div');d.className='q';d.innerHTML=`<p><b>${i+1}.</b> <span class="tag">${o.op}, AFB ${o.afb}</span> ${o.q}</p>`;
+const fb=document.createElement('p');fb.className='fb';
+const bs=o.o.map((t,j)=>{const b=document.createElement('button');b.className='opt';b.textContent=t;
+b.onclick=()=>{if(d.dataset.d)return;d.dataset.d=1;n++;const r=j==o.a;if(r)sc++;b.classList.add(r?'ok':'bad');bs[o.a].classList.add('ok');fb.className='fb '+(r?'ok':'bad');fb.textContent=(r?'Richtig. ':'Nicht ganz. ')+o.f;sum.textContent=`Punkte: ${sc} von ${qs.length} (beantwortet: ${n})`};d.appendChild(b);return b});
+d.appendChild(fb);el.appendChild(d)});el.appendChild(sum)}
+
+/* ---------- Kapitel 1 ---------- */
+const lampSvg=(x,y,b,p=1)=>`<circle cx="${x}" cy="${y}" r="15" fill="#fff" stroke="#333" stroke-width="2" ${p?'':'stroke-dasharray="3"'}/>`+(b>0?`<circle cx="${x}" cy="${y}" r="14" fill="#ffd43b" fill-opacity="${b}"/>`:'')+`<path d="M${x-10} ${y-10}l20 20m0-20l-20 20" stroke="#333" stroke-width="2"/>`;
+function fig(par,g){const f=c=>c?'flow':'',t=(x,y,s)=>`<text x="${x}" y="${y}" font-size="13" fill="#222">${s}</text>`;let s='<svg viewBox="0 0 300 205" class="fg"><g fill="none" stroke="#99a" stroke-width="4">';
+if(!par)s+=`<path class="${f(!g)}" d="M40 170V110M40 90V30H260V170H40"/></g>`;
+else s+=`<path class="flow" d="M120 170H40V110M40 90V30H120"/><path class="${f(!g)}" d="M120 30H200"/><path class="flow" d="M120 30V170"/><path class="${f(!g)}" d="M200 30V170M200 170H120"/></g>`;
+s+='<path d="M28 92h24" stroke="#222" stroke-width="2"/><path d="M33 108h14" stroke="#222" stroke-width="5"/>'+t(58,104,'6 V')+t(56,92,'+');
+if(!par){s+=lampSvg(120,30,g?0:.5)+lampSvg(200,30,g?0:.5,!g)+t(92,62,g?'U₁ = 0 V':'U₁ = 3 V')+t(172,62,g?'U₂ = 6 V (Lücke)':'U₂ = 3 V')+t(60,198,'I = '+(g?'0':'0,25')+' A')}
+else{s+=lampSvg(120,100,1)+lampSvg(200,100,g?0:1,!g)+t(138,94,'I₁ = 0,5 A')+t(138,110,'U₁ = 6 V')+t(218,94,'I₂ = '+(g?'0':'0,5')+' A')+t(218,110,'U₂ = 6 V')+t(60,198,'I = '+(g?'0,5':'1,0')+' A')}
+return s+'</svg>'}
+let g1=0;const r1=()=>{$('#f1').innerHTML=fig(0,g1);$('#f2').innerHTML=fig(1,g1);$('#b1').textContent=g1?'Lampe 2 wieder eindrehen':'Lampe 2 herausdrehen'};$('#b1').onclick=()=>{g1^=1;r1()};r1();
+quiz($('#q1'),[
+{op:'Nenne',afb:1,q:'Zwei gleiche Lampen sind in Reihe geschaltet. Wie groß ist die Stromstärke in der zweiten Lampe im Vergleich zur ersten?',o:['Kleiner','Gleich groß','Doppelt so groß'],a:1,f:'In der Reihenschaltung gibt es nur einen Weg: I = I₁ = I₂.'},
+{op:'Nenne',afb:1,q:'Wie groß ist die Spannung an jeder Lampe in der Parallelschaltung (Quelle 6 V)?',o:['3 V','6 V','12 V'],a:1,f:'In der Parallelschaltung gilt U = U₁ = U₂.'},
+{op:'Beschreibe',afb:1,q:'Du drehst in der Reihenschaltung eine Lampe heraus. Was passiert mit der anderen?',o:['Sie leuchtet heller','Sie leuchtet unverändert','Sie geht aus'],a:2,f:'Der Stromkreis ist unterbrochen, es fließt kein Strom.'},
+{op:'Berechne',afb:2,q:'Parallelschaltung: I₁ = 0,5 A und I₂ = 0,5 A. Wie groß ist die Gesamtstromstärke?',o:['0,25 A','0,5 A','1,0 A'],a:2,f:'I = I₁ + I₂ = 1,0 A.'}]);
+
+/* ---------- Baukasten ---------- */
+const TERM={bat:[[-30,0],[30,0]],lamp:[[-30,0],[30,0]],sw:[[-30,0],[30,0]],wsw:[[-30,0],[30,-14],[30,14]]};
+const tp=(c,k)=>{let [x,y]=TERM[c.t][k];for(let i=0;i<(c.r||0)/90;i++)[x,y]=[-y,x];return[c.x+x,c.y+y]};
+function sim(C,W,o={}){
+const p={},find=k=>{while(p[k]!==undefined)k=p[k];return k};
+W.forEach(w=>{const a=find(w.a),b=find(w.b);if(a!==b)p[a]=b});
+const bt=C.find(c=>c.t=='bat');if(!bt)return{I:{},V:{},out:{},none:1};
+const E=[];C.forEach(c=>{const k=i=>c.id+'.'+i,s=o[c.id]??c.s;
+if(c.t=='lamp')E.push({c,a:k(0),b:k(1),g:1/12});
+if(c.t=='sw'&&s)E.push({c,a:k(0),b:k(1),g:100});
+if(c.t=='wsw')E.push({c,a:k(0),b:k(1+s),g:100})});
+const P=find(bt.id+'.1'),M=find(bt.id+'.0');
+if(P==M)return{I:{},V:{},out:{},short:1};
+const kn=r=>r==P?6:r==M?0:null,ix={};let n=0;
+E.forEach(e=>{e.ra=find(e.a);e.rb=find(e.b);[e.ra,e.rb].forEach(r=>{if(kn(r)===null&&ix[r]===undefined)ix[r]=n++})});
+const A=Array.from({length:n},()=>Array(n+1).fill(0));
+E.forEach(e=>[[e.ra,e.rb],[e.rb,e.ra]].forEach(([x,y])=>{if(kn(x)!==null)return;const i=ix[x];A[i][i]+=e.g;if(kn(y)!==null)A[i][n]+=e.g*kn(y);else A[i][ix[y]]-=e.g}));
+for(let i=0;i<n;i++)A[i][i]+=1e-9;
+for(let i=0;i<n;i++){let m=i;for(let r=i+1;r<n;r++)if(Math.abs(A[r][i])>Math.abs(A[m][i]))m=r;[A[i],A[m]]=[A[m],A[i]];for(let r=0;r<n;r++)if(r!=i){const f=A[r][i]/A[i][i];for(let c=i;c<=n;c++)A[r][c]-=f*A[i][c]}}
+const V=r=>kn(r)!==null?kn(r):A[ix[r]][n]/A[ix[r]][ix[r]];
+let Ib=0;const I={},Vd={},out={};
+E.forEach(e=>{const i=(V(e.ra)-V(e.rb))*e.g;if(e.ra==P)Ib+=i;if(e.rb==P)Ib-=i;out[e.a]=(out[e.a]||0)-i;out[e.b]=(out[e.b]||0)+i;if(e.c.t=='lamp'){I[e.c.id]=Math.abs(i);Vd[e.c.id]=Math.abs(V(e.ra)-V(e.rb))}});
+out[bt.id+'.1']=Ib;out[bt.id+'.0']=-Ib;
+C.forEach(c=>{if(c.t=='lamp'&&I[c.id]===undefined){I[c.id]=0;Vd[c.id]=0}});
+if(Ib>20){for(const k in I){I[k]=0;Vd[k]=0}return{I,V:Vd,out:{},short:1}}
+return{I,V:Vd,out}}
+
+function builder(el,cfg){
+let C=[],W=[],sel=null,selC=null,del=0,nid=0,show=1;const snap=v=>Math.round(v/10)*10;
+el.innerHTML='<div class="bar"></div><p class="hint">Leitung ziehen: Ziehe mit dem Finger von einem Anschluss (Kreis) zu einem anderen Anschluss, oder tippe beide nacheinander an. Bauteil antippen: auswählen, dann „Drehen“. Schalter antippen: öffnen oder schließen.</p><svg class="cv" viewBox="0 0 640 360"></svg><div class="st"></div><div class="tk"></div><div class="out"></div>';
+const q=s=>el.querySelector(s),bar=q('.bar'),svg=q('svg'),st=q('.st'),out=q('.out');
+const ctx={lamps:()=>C.filter(c=>c.t=='lamp'),sws:()=>C.filter(c=>c.t=='sw'),wsw:()=>C.filter(c=>c.t=='wsw'),sim:o=>sim(C,W,o)};
+const lbl={bat:'+ Batterie 6 V',lamp:'+ Lampe',sw:'+ Schalter',wsw:'+ Wechselschalter'};
+function btn(t,f){const b=document.createElement('button');b.textContent=t;b.onclick=()=>f(b);bar.appendChild(b);return b}
+cfg.parts.forEach(t=>btn(lbl[t],()=>{if(t=='bat'&&C.some(c=>c.t=='bat'))return;const n=C.length;C.push({id:'c'+(++nid),t,x:snap(110+(n*90)%440),y:snap(90+(n*70)%220),s:0,r:0});selC=C[C.length-1].id;draw()}));
+btn('Drehen ↻',()=>{const c=C.find(x=>x.id==selC);if(c){c.r=((c.r||0)+90)%360;draw()}else st.textContent='Tippe zuerst ein Bauteil an, dann auf Drehen.'});
+btn('Löschen-Modus',b=>{del^=1;b.classList.toggle('on',del)});
+btn('Alles löschen',()=>{C=[];W=[];sel=null;out.innerHTML='';draw()});
+if(cfg.sol)btn('Lösung zeigen',()=>{C=cfg.sol.C.map(c=>({...c}));W=cfg.sol.W.map(([a,b])=>({a,b}));nid=100;draw()});
+if(cfg.table)btn('Alle 4 Stellungen testen',()=>{const L=ctx.lamps(),S=ctx.wsw();if(L.length!=1||S.length!=2){out.innerHTML='<p class="bad">Dafür brauchst du 1 Lampe und 2 Wechselschalter.</p>';return}
+let h='<table><tr><th>Schalter 1</th><th>Schalter 2</th><th>Lampe</th></tr>';[0,1].forEach(a=>[0,1].forEach(b=>{const r=ctx.sim({[S[0].id]:a,[S[1].id]:b});h+=`<tr><td>${a?'unten':'oben'}</td><td>${b?'unten':'oben'}</td><td>${!r.short&&r.I[L[0].id]>.4?'an':'aus'}</td></tr>`}));out.innerHTML=h+'</table><p>Trage die Tabelle in dein Arbeitsblatt ein.</p>'});
+const cb=document.createElement('label');cb.innerHTML='<input type="checkbox" checked> Messwerte';cb.style.cssText='margin-left:10px;font-size:15px';cb.firstChild.onchange=e=>{show=e.target.checked;draw()};bar.appendChild(cb);
+const tk=q('.tk');(cfg.tasks||[]).forEach((t,i)=>{const d=document.createElement('div');d.className='t';d.innerHTML=`<b>Auftrag ${i+1} (${t.op}, AFB ${t.afb}):</b> ${t.q} `;const b=document.createElement('button');b.className='btn';b.textContent='Prüfen';const f=document.createElement('p');f.className='fb';b.onclick=()=>{const[ok,m]=t.chk(ctx);f.className='fb '+(ok?'ok':'bad');f.textContent=(ok?'✔ ':'✘ ')+m};d.append(b,f);tk.appendChild(d)});
+const pt=e=>{const r=svg.getBoundingClientRect();return{x:(e.clientX-r.left)*640/r.width,y:(e.clientY-r.top)*360/r.height}};
+const tpk=k=>{const[id,i]=k.split('.');return tp(C.find(c=>c.id==id),+i)};
+function draw(){const s=sim(C,W),o=s.out||{};let h='';
+W.forEach((w,i)=>{let a=tpk(w.a),b=tpk(w.b);const d=(o[w.a]||0)-(o[w.b]||0);if(d<-.01)[a,b]=[b,a];
+h+=`<line class="w${Math.abs(d)>.01?' flow':''}" x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`;
+if(del)h+=`<line data-w="${i}" x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="transparent" stroke-width="24"/>`});
+C.forEach(c=>{const I=s.I&&s.I[c.id]||0,b=cl(I/.5,0,1);let sh='',tx='';
+if(c.t=='bat'){sh='<path d="M-30 0H-8M8 0H30"/><path d="M-8 -9V9" stroke-width="7"/><path d="M8 -17V17"/>';tx='6 V'}
+if(c.t=='lamp'){sh=`<path d="M-30 0H-16M16 0H30"/><circle r="24" fill="#ffd43b" fill-opacity="${b*.3}" stroke="none"/><circle r="16" fill="#fff"/><circle r="15" fill="#ffd43b" fill-opacity="${b}" stroke="none"/><path d="M-11 -11L11 11M11 -11L-11 11" stroke-width="2"/>`;if(show)tx=`${F(I)} A · ${F(s.V[c.id]||0,1)} V`}
+if(c.t=='sw'){sh=`<path d="M-30 0H-12M12 0H30"/><path d="${c.s?'M-12 0H12':'M-12 0L10 -16'}"/><circle cx="-12" r="3" fill="#222"/><circle cx="12" r="3" fill="#222"/>`;tx=c.s?'geschlossen':'offen'}
+if(c.t=='wsw'){sh=`<path d="M-30 0H-10M10 -14H30M10 14H30"/><path d="M-10 0L10 ${c.s?14:-14}"/><circle cx="-10" r="3" fill="#222"/><circle cx="10" cy="-14" r="3" fill="#222"/><circle cx="10" cy="14" r="3" fill="#222"/>`;tx='Stellung '+(c.s?'unten':'oben')}
+h+=`<g data-c="${c.id}" transform="translate(${c.x} ${c.y})"><rect x="-40" y="-40" width="80" height="80" fill="transparent"/>${selC==c.id?'<rect x="-40" y="-40" width="80" height="80" fill="none" stroke="#f59f00" stroke-width="3" stroke-dasharray="6 4"/>':''}<g transform="rotate(${c.r||0})" fill="none" stroke="#222" stroke-width="3">${sh}</g><text y="58" text-anchor="middle" font-size="12" fill="#333">${tx}</text></g>`});
+C.forEach(c=>TERM[c.t].forEach((_,k)=>{const[x,y]=tp(c,k);h+=`<circle class="tm${sel==c.id+'.'+k?' sel':''}" data-t="${c.id}.${k}" cx="${x}" cy="${y}" r="10"/><circle data-t="${c.id}.${k}" cx="${x}" cy="${y}" r="24" fill="transparent"/>`;if(c.t=='bat')h+=`<text x="${x}" y="${y-14}" text-anchor="middle" font-size="14">${k?'+':'−'}</text>`}));
+svg.innerHTML=h;
+st.innerHTML=s.short?'<b class="bad">⚠ Kurzschluss!</b> Der Strom hat einen Weg ohne Widerstand und wäre riesig (über 20 A). In der Realität würde die Sicherung auslösen. Entferne die Leitung, die Plus und Minus ohne Lampe verbindet.':s.none?'Setze zuerst eine Batterie.':Object.values(s.I).some(v=>v>.01)?'<span class="ok">✔ Es fließt Strom.</span>':'Es fließt kein Strom: Der Stromkreis ist nicht geschlossen oder durch einen Schalter unterbrochen.'}
+svg.onpointerdown=e=>{const t=e.target;
+if(t.dataset.t){const k=t.dataset.t,p0=pt(e),a=tpk(k);let mv=0,pv=null;
+const mf=ev=>{const p=pt(ev);if(Math.hypot(p.x-p0.x,p.y-p0.y)>8){mv=1;if(!pv){pv=document.createElementNS('http://www.w3.org/2000/svg','line');pv.setAttribute('stroke','#e8590c');pv.setAttribute('stroke-width','5');pv.setAttribute('stroke-dasharray','8 6');pv.setAttribute('x1',a[0]);pv.setAttribute('y1',a[1]);svg.appendChild(pv)}pv.setAttribute('x2',p.x);pv.setAttribute('y2',p.y)}};
+const add=(x,y)=>{if(x!==y&&!W.some(w=>(w.a==x&&w.b==y)||(w.a==y&&w.b==x)))W.push({a:x,b:y})};
+const up=ev=>{removeEventListener('pointermove',mf);removeEventListener('pointerup',up);if(pv)pv.remove();const el=document.elementFromPoint(ev.clientX,ev.clientY),k2=el&&el.dataset?el.dataset.t:null;
+if(mv&&k2&&k2!=k){add(k,k2);sel=null}else if(!mv){if(sel===null)sel=k;else if(sel==k)sel=null;else{add(sel,k);sel=null}}draw()};
+addEventListener('pointermove',mf);addEventListener('pointerup',up);return}
+if(t.dataset.w!==undefined){W.splice(+t.dataset.w,1);draw();return}
+const g=t.closest('[data-c]');if(!g)return;const c=C.find(x=>x.id==g.dataset.c),p0=pt(e),ox=c.x-p0.x,oy=c.y-p0.y;let mv=0;selC=c.id;
+const mf=ev=>{const p=pt(ev);if(Math.hypot(p.x-p0.x,p.y-p0.y)>6)mv=1;if(mv){c.x=cl(snap(p.x+ox),40,600);c.y=cl(snap(p.y+oy),40,320);draw()}};
+const up=()=>{removeEventListener('pointermove',mf);removeEventListener('pointerup',up);if(!mv){if(del){C=C.filter(x=>x!=c);W=W.filter(w=>!w.a.startsWith(c.id+'.')&&!w.b.startsWith(c.id+'.'));selC=null}else if(c.t=='sw'||c.t=='wsw')c.s^=1}draw()};
+addEventListener('pointermove',mf);addEventListener('pointerup',up)};
+draw()}
+
+builder($('#b2'),{parts:['bat','lamp','sw'],tasks:[
+{op:'Plane',afb:1,q:'Plane und baue eine Reihenschaltung mit 2 Lampen.',chk:x=>{const L=x.lamps();if(L.length!=2)return[0,'Du brauchst genau 2 Lampen.'];const s=x.sim();if(s.short)return[0,'Kurzschluss! Prüfe deine Leitungen.'];const i=L.map(l=>s.I[l.id]);if(i.every(v=>Math.abs(v-.25)<.02))return[1,'Richtig. In beiden Lampen fließen 0,25 A: Reihenschaltung, R = 24 Ω.'];if(i.every(v=>Math.abs(v-.5)<.02))return[0,'Beide leuchten hell: Das ist eine Parallelschaltung. Verbinde die Lampen hintereinander.'];return[0,'Noch nicht. Der Strom soll beide Lampen nacheinander durchlaufen.']}},
+{op:'Plane',afb:1,q:'Plane und baue eine Parallelschaltung mit 2 Lampen. Beide sollen hell leuchten.',chk:x=>{const L=x.lamps();if(L.length!=2)return[0,'Du brauchst genau 2 Lampen.'];const s=x.sim();if(s.short)return[0,'Kurzschluss! Prüfe deine Leitungen.'];return L.every(l=>Math.abs(s.I[l.id]-.5)<.02)?[1,'Richtig. An jeder Lampe liegen 6 V, die Gesamtstromstärke beträgt 1,0 A.']:[0,'Noch nicht. Jede Lampe muss direkt an Plus und Minus der Batterie liegen.']}},
+{op:'Plane',afb:2,q:'Plane eine Parallelschaltung, bei der jede Lampe mit einem eigenen Schalter einzeln schaltbar ist (2 Lampen, 2 Schalter).',chk:x=>{const L=x.lamps(),S=x.sws();if(L.length!=2||S.length!=2)return[0,'Du brauchst 2 Lampen und 2 Schalter.'];const ok=[[0,1],[1,0]].some(p=>[[0,0],[0,1],[1,0],[1,1]].every(([a,b])=>{const r=x.sim({[S[0].id]:a,[S[1].id]:b});if(r.short)return 0;const s=[a,b];return(r.I[L[0].id]>.4)==!!s[p[0]]&&(r.I[L[1].id]>.4)==!!s[p[1]]}));return ok?[1,'Super. Jede Lampe hängt an ihrem eigenen Schalter und liegt an 6 V.']:[0,'Noch nicht. Jede Lampe soll nur von ihrem Schalter abhängen und dann hell leuchten.']}}]});
+
+builder($('#b4'),{parts:['bat','lamp','sw','wsw'],table:1,
+sol:{C:[{id:'b',t:'bat',x:90,y:300,s:0,r:0},{id:'w1',t:'wsw',x:200,y:120,s:0,r:0},{id:'w2',t:'wsw',x:420,y:120,s:0,r:180},{id:'l',t:'lamp',x:500,y:250,s:0,r:0}],W:[['b.1','w1.0'],['w1.1','w2.1'],['w1.2','w2.2'],['w2.0','l.0'],['l.1','b.0']]},
+tasks:[{op:'Plane',afb:3,q:'Plane und baue eine Wechselschaltung: 1 Lampe, 2 Wechselschalter. Jeder Schalter soll die Lampe umschalten, egal wie der andere steht. Tipp: Zwei Leitungen verbinden die Wechselschalter.',chk:x=>{const L=x.lamps(),S=x.wsw();if(L.length!=1||S.length!=2)return[0,'Du brauchst 1 Lampe und 2 Wechselschalter.'];const f=(a,b)=>{const r=x.sim({[S[0].id]:a,[S[1].id]:b});return!r.short&&r.I[L[0].id]>.4};const ok=[0,1].every(a=>[0,1].every(b=>f(a,b)!=f(1-a,b)&&f(a,b)!=f(a,1-b)));return ok?[1,'Richtig. Jedes Umlegen eines Schalters schaltet die Lampe um.']:[0,'Noch nicht. Teste alle vier Stellungen: Bei jedem Umlegen muss sich der Zustand der Lampe ändern.']}}]});
+
+/* ---------- Kapitel 3 ---------- */
+const INF={'Außenleiter':'Außenleiter (L): führt die Spannung. Gegen den Neutralleiter und gegen Erde liegen 230 V. Gefährlich! Farbe meist braun, auch schwarz oder grau.','Neutralleiter':'Neutralleiter (N): Rückleitung, mit dem Erdboden verbunden. Gegen Erde liegt keine nennenswerte Spannung. Farbe blau.','Schutzleiter':'Schutzleiter (PE, grün-gelb): verbindet das Metallgehäuse eines Geräts mit der Erdung. Im Normalbetrieb fließt kein Strom.','Zähler':'Zähler: Er ist im Außenleiter eingebaut und misst die verbrauchte elektrische Energie.','Sicherung':'Sicherung: Sie unterbricht den Stromkreis, wenn die Stromstärke einen Wert (meist 16 A) überschreitet. Sie schützt die Leitungen vor Überlastung und Kurzschluss, aber nicht Menschen.','Erdung':'Erdung: Verbindung des Neutralleiters mit dem Erdboden.'};
+Object.keys(INF).forEach(k=>{const b=document.createElement('button');b.textContent=k;b.onclick=()=>{$('#inf3').textContent=INF[k];[...$('#ch3').children].forEach(x=>x.classList.toggle('on',x==b))};$('#ch3').appendChild(b)});
+const DV=[['Lampe','Lampe',.3,0],['TV','Fernseher',.3,0],['Staubs.','Staubsauger',7,0],['Waschm.','Waschmaschine',9,1],['Kocher','Wasserkocher',9,0]];
+let on3=[0,0,0,0,0],trip3=0;
+const tot3=()=>on3.reduce((s,v,i)=>s+v*DV[i][2],0);
+function r3(){const T=tot3();let s='';const lw=(y,c)=>`<path d="M10 ${y}H625" stroke="${c}" stroke-width="4" fill="none"/>`;
+s+=lw(50,'#8b5a2b')+lw(80,'#1c7ed6')+lw(110,'#2f9e44')+'<path d="M10 110H625" stroke="#fcc419" stroke-width="4" stroke-dasharray="10 10"/>';
+s+='<text x="12" y="44" font-size="11">Außenleiter (L)</text><text x="12" y="74" font-size="11">Neutralleiter (N)</text><text x="12" y="104" font-size="11">Schutzleiter (PE)</text>';
+s+='<path d="M40 110V150M28 150H52M32 156H48M36 162H44" stroke="#222" stroke-width="3" fill="none"/><text x="60" y="160" font-size="12">Erdung</text>';
+s+='<rect x="108" y="34" width="48" height="62" rx="4" fill="#fff" stroke="#333" stroke-width="2"/><text x="132" y="68" text-anchor="middle" font-size="12">Zähler</text>';
+s+=`<rect x="168" y="42" width="26" height="16" fill="${trip3?'#ff8787':'#fff'}" stroke="#333" stroke-width="2"/><text x="181" y="36" text-anchor="middle" font-size="11">Sicherung</text><text x="181" y="72" text-anchor="middle" font-size="11" fill="${trip3?'#c92a2a':'#333'}">${trip3?'aus!':'16 A'}</text>`;
+DV.forEach((d,i)=>{const x=250+80*i,lit=on3[i]&&!trip3;
+s+=`<path d="M${x-6} 50V190" stroke="#8b5a2b" stroke-width="4" fill="none"/><path d="M${x+6} 80V190" stroke="#1c7ed6" stroke-width="4" fill="none"/><circle cx="${x-6}" cy="50" r="4"/><circle cx="${x+6}" cy="80" r="4"/>`;
+if(d[3])s+=`<path d="M${x} 110V190" stroke="#2f9e44" stroke-width="4" fill="none"/><path d="M${x} 110V190" stroke="#fcc419" stroke-width="4" stroke-dasharray="6 6" fill="none"/><circle cx="${x}" cy="110" r="4"/>`;
+s+=`<rect class="${lit?'pulse':''}" x="${x-32}" y="190" width="64" height="56" rx="8" fill="${lit?'#ffe066':'#e9ecef'}" stroke="#333" stroke-width="2"/><text x="${x}" y="216" text-anchor="middle" font-size="12">${d[0]}</text><text x="${x}" y="236" text-anchor="middle" font-size="12">${lit?d[2]+' A':'aus'}</text>`});
+$('#h3').innerHTML=s;
+$('#bx').style.width=cl((trip3?0:T)/20*100,0,100)+'%';
+$('#tot3').innerHTML=trip3?`<b class="bad">Sicherung ausgelöst:</b> Die Gesamtstromstärke wäre ${F(T,1)} A (mehr als 16 A). Schalte zuerst Geräte aus und schalte dann die Sicherung wieder ein.`:`Gesamtstromstärke: <b>${F(T,1)} A</b> von höchstens 16 A`;
+[...$('#dv3').children].forEach((b,i)=>{if(i<5){b.classList.toggle('on',!!on3[i]);b.textContent=`${DV[i][1]} (${F(DV[i][2],1)} A)`}})}
+DV.forEach((d,i)=>{const b=document.createElement('button');b.onclick=()=>{on3[i]^=1;if(!trip3&&tot3()>16)trip3=1;r3()};$('#dv3').appendChild(b)});
+const rb=document.createElement('button');rb.textContent='Sicherung wieder einschalten';rb.onclick=()=>{if(tot3()<=16)trip3=0;r3()};$('#dv3').appendChild(rb);r3();
+quiz($('#q3'),[
+{op:'Nenne',afb:1,q:'Welche Spannung liegt zwischen Außenleiter und Neutralleiter?',o:['6 V','25 V','230 V'],a:2,f:'Zwischen Außen- und Neutralleiter liegen 230 V.'},
+{op:'Nenne',afb:1,q:'Welche Leitung ist grün-gelb gekennzeichnet?',o:['Außenleiter','Neutralleiter','Schutzleiter'],a:2,f:'Grün-gelb ist immer der Schutzleiter.'},
+{op:'Begründe',afb:2,q:'Warum sind die Steckdosen einer Wohnung parallel geschaltet?',o:['Jedes Gerät erhält 230 V und lässt sich einzeln ein- und ausschalten','Damit die Stromstärke überall gleich groß ist','Damit weniger Strom fließt'],a:0,f:'Bei Parallelschaltung liegt an jedem Gerät die volle Spannung, und die Geräte arbeiten unabhängig voneinander.'},
+{op:'Berechne',afb:2,q:'Lampe (0,3 A), Fernseher (0,3 A) und Staubsauger (7 A) laufen gleichzeitig. Wie groß ist die Gesamtstromstärke?',o:['0,3 A','7,6 A','7,0 A'],a:1,f:'I = 0,3 A + 0,3 A + 7 A = 7,6 A. Das ist weniger als 16 A, die Sicherung löst nicht aus.'}]);
+
+/* ---------- Kapitel 5 ---------- */
+let m5=0,d5=0,t5=0,f5=0;
+const M5=['Ohne Schutzleiter','Mit Schutzleiter und Sicherung','Zusätzlich FI-Schalter'];
+M5.forEach((n,i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>{m5=i;r5()};$('#m5').appendChild(b)});
+[['Isolierung defekt',()=>d5^=1],['Person berührt Gehäuse',()=>t5^=1]].forEach(([n,f],i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>{f();r5()};$('#o5').appendChild(b)});
+function r5(){const live=d5&&!m5,trip=d5&&m5>0;
+[...$('#m5').children].forEach((b,i)=>b.classList.toggle('on',i==m5));[...$('#o5').children].forEach((b,i)=>b.classList.toggle('on',!!(i?t5:d5)));
+let s=`<rect x="0" y="236" width="640" height="24" fill="#d9c9a8"/><text x="8" y="253" font-size="12">Erdboden (0 V)</text>
+<rect x="300" y="70" width="150" height="140" rx="8" fill="${live?'#ffc9c9':'#e9ecef'}" stroke="${live?'#c92a2a':'#444'}" stroke-width="${live?5:3}"/><circle cx="375" cy="140" r="34" fill="#fff" stroke="#444" stroke-width="3"/><text x="375" y="145" text-anchor="middle" font-size="13">Waschm.</text>
+<path d="M620 90H420" stroke="#8b5a2b" stroke-width="4"/><path d="M620 110H420" stroke="#1c7ed6" stroke-width="4"/><text x="560" y="84" font-size="11">L</text><text x="560" y="104" font-size="11">N</text>`;
+if(m5>0)s+=`<path d="M620 130H450" stroke="#2f9e44" stroke-width="4"/><path d="M620 130H450" stroke="#fcc419" stroke-width="4" stroke-dasharray="8 8"/><circle cx="450" cy="130" r="5"/><text x="560" y="150" font-size="11">PE</text>`;
+if(d5)s+=`<path d="M420 90V70" stroke="#c92a2a" stroke-width="5"/><text x="305" y="60" font-size="12" fill="#c92a2a">Außenleiter berührt Gehäuse</text>`;
+if(trip)s+='<path class="flow" d="M450 130H620" stroke="#c92a2a" stroke-width="4" fill="none"/>';
+s+=`<rect x="500" y="80" width="26" height="16" fill="${trip?'#ff8787':'#fff'}" stroke="#333" stroke-width="2"/><text x="513" y="74" text-anchor="middle" font-size="10">Sicherung</text>`;
+if(m5==2)s+=`<rect x="580" y="72" width="34" height="66" fill="#fff" fill-opacity=".85" stroke="#0b5fa5" stroke-width="3"/><text x="597" y="110" text-anchor="middle" font-size="14" fill="#0b5fa5">FI</text>`;
+if(t5){s+=`<circle cx="200" cy="118" r="11" fill="#ffe8cc" stroke="#333" stroke-width="3"/><g fill="none" stroke="#333" stroke-width="4"><path d="M200 129V180L185 234M200 180L215 234M200 145L300 140"/></g>`;
+if(live)s+='<path class="flow" d="M300 140L200 145V180L185 234" stroke="#c92a2a" stroke-width="4" fill="none"/>'}
+$('#s5').innerHTML=s;
+let m,c='';
+if(!d5)m='Das Gerät ist in Ordnung. Das Gehäuse ist spannungsfrei.';
+else if(m5==0)m=t5?'GEFAHR: Zwischen Gehäuse und Erde liegen 230 V. Es fließt ein Strom durch den Körper nach Erde. Die Sicherung löst nicht aus, weil diese Stromstärke viel kleiner als 16 A ist.':'Das Gehäuse steht jetzt unter 230 V gegen Erde. Noch passiert nichts, aber wer es berührt, ist in Gefahr.';
+else m='Der Außenleiter hat über den Schutzleiter Verbindung zur Erdung: Es entsteht ein Kurzschluss, die Stromstärke wird sehr groß und die Sicherung unterbricht den Stromkreis. Das Gehäuse ist spannungsfrei (0 V gegen Erde), niemand ist gefährdet.';
+c=d5&&m5==0&&t5?'r':d5&&m5>0?'g':'';
+$('#r5').className='msg '+c;$('#r5').textContent=m;
+const fi=$('#fi5');if(m5<2){fi.innerHTML='';return}
+const tr=f5>=30;fi.innerHTML=`<h3>Der FI-Schalter vergleicht Stromstärken</h3><p>Ein Teil des Stroms fließt als Fehlerstrom über eine Person nach Erde (z. B. im Bad auf nassem Boden). Stelle ihn ein:</p><input type="range" id="sl" min="0" max="60" value="${f5}"><p>Fehlerstrom: <b>${f5} mA</b></p><table><tr><td>Außenleiter</td><td>${F(5+f5/1000,3)} A</td></tr><tr><td>Neutralleiter</td><td>${F(5,3)} A</td></tr><tr><td>Differenz</td><td>${f5} mA</td></tr></table><div class="msg ${tr?'g':''}">${tr?'Die Differenz erreicht 30 mA: Der FI-Schalter unterbricht den Stromkreis.':'Die Differenz ist kleiner als 30 mA: Der FI-Schalter löst nicht aus.'}</div>`;
+$('#sl').oninput=e=>{f5=+e.target.value;r5()}}
+r5();
+
+/* ---------- Kapitel 6 ---------- */
+quiz($('#q6'),[
+{op:'Nenne',afb:1,q:'Welche Leitung verbindet im Haushalt das Metallgehäuse eines Geräts mit der Erdung?',o:['Außenleiter','Neutralleiter','Schutzleiter'],a:2,f:'Das ist der grün-gelbe Schutzleiter.'},
+{op:'Begründe',afb:2,q:'Warum genügen zwei einfache Schalter in Reihe nicht für ein Treppenlicht?',o:['Die Lampe würde zu hell leuchten','Die Lampe leuchtet nur, wenn beide Schalter geschlossen sind, ein Schalter allein kann nicht umschalten','Dann fließt nie ein Strom'],a:1,f:'Bei Reihenschaltung gilt: Alle Schalter müssen geschlossen sein.'},
+{op:'Berechne',afb:2,q:'Waschmaschine (9 A) und Wasserkocher (9 A) laufen gleichzeitig an einer 16-A-Sicherung. Was geschieht?',o:['Gesamtstromstärke 9 A, nichts passiert','Gesamtstromstärke 18 A, die Sicherung löst aus','Gesamtstromstärke 81 A, es gibt einen Kurzschluss'],a:1,f:'I = 9 A + 9 A = 18 A, das ist mehr als 16 A.'},
+{op:'Erkläre',afb:2,q:'Was vergleicht der FI-Schalter?',o:['Die Spannung zwischen Außenleiter und Erde','Die Stromstärken in Außenleiter und Neutralleiter','Die Temperatur der Leitungen'],a:1,f:'Sind die Stromstärken nicht gleich, fließt Strom auf einem anderen Weg ab, und der FI trennt.'},
+{op:'Beurteile',afb:3,q:'Jemand sagt: „Mit FI-Schalter kann man gefahrlos an blanke Leitungen fassen.“',o:['Richtig, der FI verhindert jeden Stromschlag','Falsch: Der Körper wird kurz durchströmt, bevor der FI auslöst. Es gibt keine hundertprozentige Sicherheit','Richtig, wenn die Sicherung 16 A hat'],a:1,f:'Auch FI und Schutzleiter bieten keine hundertprozentige Sicherheit.'},
+{op:'Vergleiche',afb:3,q:'Was unterscheidet die Wechselschaltung von zwei einfachen Schaltern in Reihe bzw. parallel?',o:['Jeder Schalter schaltet die Lampe um, egal wie der andere steht','Die Lampe leuchtet nur, wenn beide Schalter geschlossen sind','Die Lampe leuchtet, sobald ein Schalter geschlossen ist'],a:0,f:'Reihe entspricht „beide“, parallel entspricht „mindestens einer“, Wechselschaltung schaltet bei jedem Umlegen um.'}]);
+go(0);
+</script></body></html>
